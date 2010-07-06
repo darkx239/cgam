@@ -1,0 +1,57 @@
+/*---------------------------------------------
+	Needed Infomation
+		-> You need to have this if you don't
+		   Want to brake CGAM
+---------------------------------------------*/
+
+PLUGIN.Name = "< Plugin Name >"
+PLUGIN.Category = "< Category >"
+PLUGIN.Info = "< Author / Info >"
+PLUGIN.Usage = "< How To Use >"
+
+PLUGIN.BuildMenu = {} -- You can remove this if you want, but it speeds up load time
+
+/*---------------------------------------------
+	Function list
+		-> You need to have this if you don't
+		   Want to brake CGAM
+---------------------------------------------*/
+
+-- You need to have this, even if its empty
+--		This is called on the server on startup.
+function PLUGIN.Init()
+end
+
+-- You need to have this, even if its empty
+--		This is caled on both the server and the client on startup
+function PLUGIN.Shared()
+end
+
+-- You need to have this, even if its empty
+--		This is called on the client on startup
+function PLUGIN.Cl_init()
+end
+
+/*---------------------------------------------
+	Buildin the menus
+		-> Optional, but gives a nice look
+		   On the Plugin UI.
+---------------------------------------------*/
+
+-- Optional, if not provided, it removes part of the menu.
+--		Used when the player clicks on 'info' on the UI menu
+function PLUGIN.OnInfo()
+end
+
+-- If you want to add Menu options then utilise
+-- the BuildMenu table.
+
+-- Ex :
+
+function PLUGIN.BuildMenu.Name_Goes_Here()
+	-- put your code here
+	-- The code runs when the player clicks on your option.
+	
+	-- This makes an option called 'Name_Goes_Here' and
+	-- this function is run when its clicked
+end
