@@ -1,0 +1,12 @@
+"AddonInfo"
+{
+	"name"		"CGAM"
+	"version"	"1.0"
+	"up_date"	"5th of July, 2010"
+	"author_name"	".:CG:. Meisno"
+	"author_email"	""
+	"author_url"	"http://www.citrongamers.com/"
+	
+	"info"		"Contains An admin mod and various plugins."
+
+}
