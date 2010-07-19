@@ -151,7 +151,7 @@ function PLUGIN.Cl_init()
 			//HTMLTest:SetHTML(file.Read( "lol1.txt" ))
 			HTMLTest:OpenURL( "http://www.google.com" )
 			
-			function OpenURL( url )
+			function Console.OpenURL( url )
 				HTMLTest:OpenURL( url )
 			end
 
