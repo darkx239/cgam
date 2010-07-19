@@ -68,6 +68,7 @@ function CGAM.ReloadSinlgePlugins( file1 )
 	
 	PLUGIN = { }
 	PLUGIN.BuildMenu = { }
+	PLUGIN.Hook = { }
 	
 	if SERVER then
 	
@@ -98,23 +99,32 @@ function CGAM.ReloadSinlgePlugins( file1 )
 	
 	CGAM.Plugins[PLUGIN.Name] = { }
 		
-		CGAM.Plugins[PLUGIN.Name]["File"] = file1
-		
-		-- Information
-		
-		CGAM.Plugins[PLUGIN.Name]["Name"] = PLUGIN.Name
-		CGAM.Plugins[PLUGIN.Name]["Category"] = PLUGIN.Category
-		CGAM.Plugins[PLUGIN.Name]["Info"] = PLUGIN.Info
-		CGAM.Plugins[PLUGIN.Name]["Usage"] = PLUGIN.Usage
-		CGAM.Plugins[PLUGIN.Name]["BuildMenu"] = PLUGIN.BuildMenu
+	CGAM.Plugins[PLUGIN.Name]["File"] = file1
 	
-		-- Functions
+	-- Information
 	
-		CGAM.Plugins[PLUGIN.Name]["Init"] = PLUGIN.Init
-		CGAM.Plugins[PLUGIN.Name]["shared"] = PLUGIN.Shared
-		CGAM.Plugins[PLUGIN.Name]["Cl_Init"] = PLUGIN.Cl_init
-		if PLUGIN.OnInfo then CGAM.Plugins[PLUGIN.Name]["OnInfo"] = PLUGIN.OnInfo end
-
+	CGAM.Plugins[PLUGIN.Name]["Name"] = PLUGIN.Name
+	CGAM.Plugins[PLUGIN.Name]["Category"] = PLUGIN.Category
+	CGAM.Plugins[PLUGIN.Name]["Info"] = PLUGIN.Info
+	CGAM.Plugins[PLUGIN.Name]["Usage"] = PLUGIN.Usage
+	CGAM.Plugins[PLUGIN.Name]["BuildMenu"] = PLUGIN.BuildMenu
+	
+	-- Functions
+	
+	CGAM.Plugins[PLUGIN.Name]["Init"] = PLUGIN.Init
+	CGAM.Plugins[PLUGIN.Name]["shared"] = PLUGIN.Shared
+	CGAM.Plugins[PLUGIN.Name]["Cl_Init"] = PLUGIN.Cl_init
+	if PLUGIN.OnInfo then CGAM.Plugins[PLUGIN.Name]["OnInfo"] = PLUGIN.OnInfo end
+	
+	-- Hooking System
+	
+	CGAM.Plugins[PLUGIN.Name]["Hook"] = PLUGIN.Hook
+	
+	for name,func in pairs( PLUGIN.Hook ) do
+		local cname = "CGAM_Plugins." .. PLUGIN.Name
+		hook.Add( name, cname , func )
+	end
+	
 end
 
 CGAM.ReloadPlugins()

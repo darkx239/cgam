@@ -35,6 +35,10 @@ function PLUGIN.Cl_init()
 		DermaPanel:SetVisible( true )
 		DermaPanel:SetDraggable( false )
 		DermaPanel:ShowCloseButton( true )
+		function DermaPanel:Paint()
+			draw.RoundedBoxEx( 8, 0, 0, DermaPanel:GetWide(), 22, Color( 0, 0, 0, 200 ), true, true, false, false )
+			draw.RoundedBoxEx( 8, 0, 22, DermaPanel:GetWide(), DermaPanel:GetTall() - 22, Color( 0, 0, 0, 150 ), false, false, true, true )
+		end
 		DermaPanel:MakePopup()
 		DermaPanel:Center()
 		 
@@ -107,6 +111,10 @@ function PLUGIN.OnInfo()
 	DFrame1:SetTitle('Info')
 	DFrame1:SetSizable(true)
 	DFrame1:SetDeleteOnClose(false)
+	function DFrame1:Paint()
+		draw.RoundedBoxEx( 8, 0, 0, DFrame1:GetWide(), 22, Color( 0, 0, 0, 200 ), true, true, false, false )
+		draw.RoundedBoxEx( 8, 0, 22, DFrame1:GetWide(), DFrame1:GetTall() - 22, Color( 0, 0, 0, 150 ), false, false, true, true )
+	end
 	DFrame1:MakePopup()
 
 	DPanel1 = vgui.Create('DPanel')

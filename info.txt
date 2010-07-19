@@ -1,7 +1,7 @@
 "AddonInfo"
 {
 	"name"		"CGAM"
-	"version"	"2.0"
+	"version"	"1.0"
 	"up_date"	"5th of July, 2010"
 	"author_name"	".:CG:. Meisno"
 	"author_email"	""
