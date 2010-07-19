@@ -61,6 +61,7 @@ function PLUGIN.Cl_init()
 					Menu:AddOption( k , v )
 				end
 			end
+			Menu:AddOption( "Reload", RunConsoleCommand( "CGAM_ReloadSinglePlugin" , PlugTab["File"] ) )
 			Menu:AddOption( "Close", Menu:Hide() )
 			Menu:Open()
 		end

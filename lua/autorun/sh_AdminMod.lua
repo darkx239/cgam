@@ -1,6 +1,4 @@
-
-
-if !_G['CGAM'] then _G['CGAM'] = { } end
+if !_G['CGAM'] then _G['CGAM'] = { } end -- Opening up the modular Edition
 
 if SERVER then
 
@@ -207,10 +205,12 @@ if SERVER then
 			if message == '< Optional >' then
 
 				pl:Ban( time, 'Old and useless' )
+				Kick( pl, "")
 
 			else
 
 				pl:Ban( time, message )
+				Kick( pl, "")
 
 			end
 		
@@ -309,19 +309,24 @@ if CLIENT then
 			local DButton2
 			local DComboBox1
 			local DPanel1
-			local DFrame1
 
-			DFrame1 = vgui.Create('DFrame')
+			_G['DFrame1'] = vgui.Create('DFrame')
 			DFrame1:SetSize(418, 250)
 			DFrame1:Center()
 			DFrame1:SetTitle('CG Admin Mod')
 			DFrame1:SetDeleteOnClose(false)
+			function DFrame1:Paint()
+				draw.RoundedBoxEx( 8, 0, 0, DFrame1:GetWide(), 22, Color( 0, 0, 0, 200 ), true, true, false, false )
+				draw.RoundedBoxEx( 8, 0, 22, DFrame1:GetWide(), DFrame1:GetTall() - 22, Color( 0, 0, 0, 150 ), false, false, true, true )
+			end
+
 			DFrame1:MakePopup()
 
 			DPanel1 = vgui.Create('DPanel')
 			DPanel1:SetParent(DFrame1)
 			DPanel1:SetSize(413, 224)
 			DPanel1:SetPos(2, 24)
+			function DPanel1:Paint()end
 
 			DComboBox1 = vgui.Create('DComboBox')
 			DComboBox1:SetParent(DPanel1)
@@ -332,9 +337,27 @@ if CLIENT then
 			DComboBox1.OnMousePressed = function() end
 			DComboBox1:SetMultiple(false)
 			
-			for k,v in pairs( player.GetAll() ) do
-				DComboBox1:AddItem( v:Nick() )
+			function RebuildMenu()
+				DComboBox1:Clear()
+				DComboBox1:Clear()
+				for k,v in pairs( player.GetAll() ) do
+					DComboBox1:AddItem( v:Nick() )
+				end
+				timer.Simple( 1 , function() // Ban stuff :( 
+					DComboBox1:Clear()
+					DComboBox1:Clear()
+					for k,v in pairs( player.GetAll() ) do
+						DComboBox1:AddItem( v:Nick() )
+					end
+				end)
 			end
+			RebuildMenu()
+			
+			hook.Add( "PlayerInitialSpawn", "CGAM_RealoadPlayerList", function( pl )
+				if DFrame1 then
+					RebuildMenu()
+				end
+			end)
 
 			DTextEntry3 = vgui.Create('DTextEntry')
 			DTextEntry3:SetParent(DPanel1)
@@ -405,6 +428,8 @@ if CLIENT then
 			DButton4:SetText('Kick')
 			DButton4.DoClick = function()
 				RunConsoleCommand( "CGAM_Kick", DComboBox1:GetSelected():GetValue() , DTextEntry3:GetValue() )
+				RebuildMenu()
+				RebuildMenu()
 			end
 
 			DButton5 = vgui.Create('DButton')
@@ -414,6 +439,8 @@ if CLIENT then
 			DButton5:SetText('Ban')
 			DButton5.DoClick = function()
 				RunConsoleCommand( "CGAM_Ban", DComboBox1:GetSelected():GetValue() , DTextEntry3:GetValue(), DNumSlider1:GetValue() )
+				RebuildMenu()
+				RebuildMenu()
 			end
 
 			DButton5FXRG = vgui.Create('DButton')
@@ -423,6 +450,8 @@ if CLIENT then
 			DButton5FXRG:SetText('Run Lua')
 			DButton5FXRG.DoClick = function()
 				RunConsoleCommand( "CGAM_Lua", DTextEntry3:GetValue() )
+				RebuildMenu()
+				RebuildMenu()
 			end
 
 			DButton6 = vgui.Create('DButton')
@@ -432,6 +461,8 @@ if CLIENT then
 			DButton6:SetText('Cexec')
 			DButton6.DoClick = function()
 				RunConsoleCommand( "CGAM_Cexec", DComboBox1:GetSelected():GetValue() , DTextEntry3:GetValue() )
+				RebuildMenu()
+				RebuildMenu()
 			end
 
 			DButton7 = vgui.Create('DButton')
@@ -485,5 +516,3 @@ if CLIENT then
 	CGAM.OpenUI = OpenUI
 	
 end
-
-require("CGAM")
